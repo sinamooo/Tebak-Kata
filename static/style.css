@@ -1,0 +1,317 @@
+body {
+    background-color: #66A5ED;
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: "Jersey 20", sans-serif;
+    overflow-x: hidden;
+}
+
+/* Halaman login (Start Game)  */
+.start {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+label {
+    text-align: center;
+    color: #ffffff;
+    font-family: "Jersey 20", sans-serif;
+    font-size: 60px;
+    margin-top: 40px;
+}
+
+input, select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    box-sizing: border-box;
+    background-color: #DB3E8C;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 24px;
+    font-family: "Jersey 20", sans-serif;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+    background-color: #7758A3;
+    transition: 0.3s;
+    color: #ffffff;
+}
+
+button:hover {
+    background-color: #F6C45C;
+}
+
+input:hover, select:hover {
+    background-color: #F6C45C; 
+    cursor: pointer;
+}
+
+/* box berwarna ketika sedang diklik atau diisi  */
+input:focus, select:focus {
+    background-color: #F6C45C;
+    border: 2px solid #ffffff; 
+}
+
+
+/* HALAMAN GAME */
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin-bottom: -20px; 
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: "Jersey 20", sans-serif;
+    letter-spacing: 3px;
+    font-size: clamp(35px, 8vw, 100px); 
+    margin: clamp(20px, 5vh, 50px) 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.name {
+    font-family: "Jersey 20", sans-serif;
+    font-size: clamp(20px, 4vw, 40px); 
+    color: #ffffff;
+    background-color: #DB3E8C;
+    text-transform: lowercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(5px, 1.5vw, 10px) clamp(15px, 2.5vw, 25px); 
+    border-radius: 20px;
+    margin: 0;
+    line-height: 1; 
+}
+
+.category-label {
+    color: white;
+    font-family: "Jersey 20", sans-serif;
+    font-size: clamp(18px, 4vw, 40px);
+    margin: 0;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.category-box {
+    background-color: #DB3E8C;
+    padding: clamp(3px, 1vw, 5px) clamp(10px, 2vw, 20px);
+    border-radius: 12px;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(16px, 3vw, 30px);
+    margin-top: 5px;
+    min-width: clamp(80px, 15vw, 100px); 
+}
+
+.Scor {
+    background-color: #7758A3;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: white;
+    font-size: 35px;
+    margin-top: 5px;
+}
+
+.game {
+    text-align: center;
+    width: 100%;
+}
+
+.nyawa {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+/*  KONTROL TEBAKAN  */
+
+.guess-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.guess-control-group {
+    display: flex;
+    align-items: stretch;
+    filter: drop-shadow(0 6px 0px rgba(0,0,0,0.2));
+    transition: transform 0.1s;
+}
+
+.input-box {
+    width: clamp(50px, 10vw, 70px) !important;
+    height: clamp(50px, 10vw, 70px) !important;
+    background-color: #F6C45C !important;
+    border: none !important;
+    border-radius: 15px 0 0 15px !important;
+    font-family: "Jersey 20", sans-serif;
+    font-size: clamp(24px, 5vw, 40px) !important;
+    color: #ffffff !important;
+    text-align: center;
+    outline: none;
+}
+
+.btn-guess {
+    height: auto !important;
+    padding: 0 clamp(15px, 4vw, 40px) !important;
+    background-color: #7758A3 !important;
+    color: white !important;
+    border-radius: 0 15px 15px 0 !important;
+    font-size: clamp(18px, 3vw, 28px) !important;
+    border: none !important;
+    cursor: pointer;
+    width: auto !important;
+}
+
+/*  HINT & DISPLAY  */
+
+.visual-hint-container {
+    margin: 15px 0;
+}
+
+.hint-img {
+    width: clamp(150px, 30vw, 200px);
+    height: auto;
+    border-radius: 15px;
+    border: 3px solid #7758A3;
+    background-color: #f0f0f0;
+    display: block;
+    margin: 0 auto;
+}
+
+.word-display {
+    font-size: clamp(40px, 10vw, 100px);
+    letter-spacing: 10px;
+    margin: 20px 0;
+    font-family: monospace;
+    font-weight: bold;
+    color: white;
+}
+
+.hint-form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0 80px 0;
+}
+
+.btn-hint {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 20px;
+    width: fit-content;      /* Lebar mengikuti isi teks saja */
+    display: inline-block;   
+}
+
+/*  POP UP GAME OVER  */
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #7758A3;
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    border: 6px solid #F6C45C;
+    color: white;
+    max-width: 400px;
+    width: 85%;
+}
+
+.modal-content h2 {
+    font-size: clamp(40px, 8vw, 60px);
+    margin: 0 0 20px 0;
+}
+
+.modal-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+    
+}
+
+.modal-btns a {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-restart { 
+    background-color: #DB3E8C; 
+}
+.btn-quit { 
+    background-color: #66A5ED; 
+}
+.modal-btns a:hover { 
+    transform: scale(1.1); 
+}

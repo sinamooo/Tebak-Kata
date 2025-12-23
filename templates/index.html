@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Word</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+20&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- logika flask -->
+   {% if not game_start %} 
+   <div class="start">
+    <h1>Tebak Kata</h1>
+    <!-- Form untuk mengirim data ke server (Flask) melalui route /start. -->
+    <form action="/start" method="post" class="form-container">
+        <label>Masukkan Nama Kamu:</label>
+        <input type="text" name="input_nama" placeholder=" " required autocomplete="off">
+
+        <label>Kategori:</label>
+        <select name="kategori_pilihan">
+            <option value="Semua">-- Semua Kategori --</option>
+            <option value="Hewan">Hewan</option>
+            <option value="Buah">Buah</option>
+            <option value="Negara">Negara</option>
+            <option value="Ibu_kota">Ibu Kota</option>
+        </select>
+        
+        <button type="submit">MULAI!</button>
+        <p>Created by @shfannaa</p>
+    </form>
+   </div>
+    
+   {% else %}
+   <div class="header-container">
+    <div class="top-row">
+        <p class="category-label">
+            Kategori: <br> <span class="category-box">{{ kategori }}</span>
+        </p>
+        <h2 class="name">{{ user_name }}</h2>
+    </div>
+
+    <h1>Tebak Kata</h1>
+
+    <p class="Scor">Skor: {{ skor }}</p>
+    </div>
+    <div class="game">
+   
+    <p class="nyawa">Sisa nyawa: 
+    <strong class="lives-count {% if nyawa <= 2 %}danger{% endif %}">
+        {{ nyawa }}
+    </strong>
+    / 5
+</p>
+
+{% if sisa_hint == 0 %}
+    <div class="visual-hint-container">
+        <p>💡 <strong>Petunjuk Gambar:</strong></p>
+        <img src="{{ url_for('static', filename='hints/' + image_name + '.jpg') }}" 
+             alt="Hint Gambar" class="hint-img">
+    </div>
+{% endif %}
+
+<div class="word-display">
+    {{ display_word }}
+</div>
+
+{% if nyawa > 0 and '_' in display_word.replace(' ', '') %}
+<form action="/guess" method="post" class="guess-form">
+    <div class="guess-control-group">
+        <input type="text" name="tebakan" class="input-box" maxlength="1" placeholder="?" required autofocus autocomplete="off">
+        <button type="submit" class="btn-guess">Tebak!</button>
+    </div>
+</form>
+
+    {% if sisa_hint > 0 %}
+        <form action="/get_hint" method="post" class="hint-form">
+            <button type="submit" class="btn-hint">
+                Ambil Hint ({{ sisa_hint }})
+            </button>
+        </form>
+    {% endif %}
+{% endif %}
+    </div>
+    <!-- Pop-up yang muncul jika pemain kalah -->
+    <div id="gameOverModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>GAME OVER!</h2>
+            <p>Yah, nyawa kamu sudah habis...</p>
+            <p>Kata yang benar adalah: <strong>{{ secret_word }}</strong></p>
+            <div class="modal-btns">
+                <a href="{{ url_for('game') }}" class="btn-restart">Main Lagi</a>
+                <a href="/" class="btn-quit">Menu Utama</a>
+            </div>
+        </div>
+    </div>
+    <!-- Pop-up yang muncul jika pemain menang -->
+    <div id="winModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>KAMU BERHASIL!</h2>
+            <p>Selamat! Kamu berhasil menebak katanya.</p>
+            <p>Skor Kamu: <strong>{{ skor }}</strong></p>
+            <div class="modal-btns">
+                <!-- Tombol untuk memicu fungsi Flask agar game diulang kembali. -->
+                <a href="{{ url_for('game') }}" class="btn-restart">Lanjut Lagi</a>
+                <a href="/" class="btn-quit">Selesai</a>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    window.onload = function() {
+        // Menggunakan Number() dan String() untuk memastikan tipe data benar
+        const sisaNyawa = Number("{{ nyawa }}");
+        const kataTampilan = "{{ display_word }}";
+        
+        // Cek Kalah
+        if (sisaNyawa <= 0) {
+            const modalKalah = document.getElementById('gameOverModal');
+            if (modalKalah) modalKalah.style.display = 'flex';
+        } 
+        // Cek Menang
+        else if (kataTampilan && !kataTampilan.includes('_')) {
+            const modalMenang = document.getElementById('winModal');
+            if (modalMenang) modalMenang.style.display = 'flex';
+        }
+    };
+</script>
+
+   {% endif %}
+</body>
+</html>
